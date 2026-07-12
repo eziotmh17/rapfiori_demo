@@ -1,0 +1,62 @@
+managed implementation in class zbp_ibooking_99 unique;
+strict ( 2 );
+
+define behavior for ZIBOOKING_99 alias BookingHeader
+persistent table ztbooking_99
+lock master
+authorization master ( global )
+etag master LocalLastChangedAt
+early numbering
+{
+  create;
+  update;
+  delete;
+  field ( readonly ) BookingId, CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+  field ( mandatory ) CustomerId, BookingDate;
+  association _bookingItem { create; }
+
+  mapping for ztbooking_99
+    {
+      BookingId          = booking_id;
+      CustomerId         = customer_id;
+      BookingDate        = booking_date;
+      Description        = description;
+      TotalPrice         = total_price;
+      CurrencyCode       = currency_code;
+      OverallStatus      = overall_status;
+      ConfirmFlag        = confirm_flag;
+      Priority           = priority;
+      CustomerRating     = customer_rating;
+      CompletionPct      = completion_pct;
+      CreatedBy          = created_by;
+      CreatedAt          = created_at;
+      LastChangedBy      = last_changed_by;
+      LastChangedAt      = last_changed_at;
+      LocalLastChangedAt = local_last_changed_at;
+    }
+}
+
+define behavior for ZIBOOKINGITEM_99 alias BookingItem
+persistent table ztbookingitem_99
+lock dependent by _bookingHeader
+authorization dependent by _bookingHeader
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) BookingId;
+  field ( readonly : update ) ItemId;
+  association _bookingHeader;
+  mapping for ztbookingitem_99
+    {
+      BookingId          = booking_id;
+      ItemId             = item_id;
+      ProductId          = product_id;
+      Quantity           = quantity;
+      QuantityUnit       = quantity_unit;
+      ItemPrice          = item_price;
+      CurrencyCode       = currency_code;
+      LastChangedAt      = last_changed_at;
+      LocalLastChangedAt = local_last_changed_at;
+    }
+}

@@ -1,0 +1,20 @@
+@Metadata.layer: #CORE
+annotate entity ZCBOOKING_99 with
+{
+  @EndUserText.label: 'Confirmed'
+  @UI.lineItem:       [{ position: 60 }]
+  @UI.selectionField: [{ position: 50 }]
+  @Consumption.valueHelpDefinition: [{ entity: { name: 'ZI_CONFIRM_VH_FS01',
+                                                 element: 'ConfirmFlag' },
+                                       useForValidation: true }]
+  ConfirmFlag;
+
+  @UI.selectionField: [{ position: 60 }]
+  @Consumption.filter.selectionType: #SINGLE  // Single Select Value
+  @Consumption.filter.defaultValue: '1'       // pre-filled when app opens ( Radio Button defualt )
+  @Consumption.filter.mandatory: true         // uncomment to force input ( at leaset 1 radiobutton choosen)
+  @Consumption.valueHelpDefinition: [{ entity: { name: 'ZI_PRIORITY_VH_FS01',
+                                                 element: 'Priority' },
+                                       useForValidation: true  }]
+  Priority;
+}

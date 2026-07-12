@@ -1,0 +1,14 @@
+@Metadata.layer: #CORE
+annotate entity ZCBOOKING_99 with
+{
+  @EndUserText.label: 'Status'
+  @UI.lineItem:       [{ position: 40,
+                         criticality: 'StatusCriticality',
+                         criticalityRepresentation: #WITH_ICON }]
+  OverallStatus;
+
+  // Same pattern for Priority (High=red / Medium=yellow / Low=green)
+  @EndUserText.label: 'Priority'
+  @UI.lineItem:       [{ position: 50, criticality: 'PriorityCriticality' }]
+  Priority;
+}

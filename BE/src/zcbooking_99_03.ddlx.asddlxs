@@ -1,0 +1,30 @@
+@Metadata.layer: #CORE
+annotate entity ZCBOOKING_99 with
+{
+
+  @UI.selectionField: [{ position: 10 }]
+  @Consumption.filter.multipleSelections: true
+  @Consumption.valueHelpDefinition: [{
+    entity: { name: 'ZI_CUSTOMER_FS01', element: 'CustomerId' },
+    additionalBinding: [{ element: 'City',
+                          localElement: 'CustomerCity',
+                          usage: #FILTER_AND_RESULT }]
+  }]
+  CustomerId;
+
+  @UI.selectionField: [{ position: 20 }]
+  @Consumption.filter.selectionType: #INTERVAL
+  BookingDate;
+
+  @UI.selectionField: [{ position: 30 }]
+  @Consumption.valueHelpDefinition: [{ entity: { name: 'ZI_BOOKING_STATUS_VH_FS01',
+                                                 element: 'OverallStatus' },
+                                       useForValidation: true }]
+  OverallStatus;
+
+  @EndUserText.label: 'City'
+  @UI.selectionField: [{ position: 40 }]
+  @Consumption.valueHelpDefinition: [{ entity: { name: 'ZI_CITY_VH_FS01',
+                                                 element: 'City' } }]
+  CustomerCity;
+}

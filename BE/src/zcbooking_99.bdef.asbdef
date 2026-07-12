@@ -1,0 +1,19 @@
+projection;
+strict ( 2 );
+
+define behavior for ZCBOOKING_99 alias BookingHeader
+{
+  use create;
+  use update;
+  use delete;
+
+  use association _bookingItem { create; }
+}
+
+define behavior for ZCBOOKINGITEM_99 alias BookingItem
+{
+  use update;
+  use delete;
+
+  use association _bookingHeader;
+}

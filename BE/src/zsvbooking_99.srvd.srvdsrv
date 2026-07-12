@@ -1,0 +1,5 @@
+@EndUserText.label: 'Booking Service Define'
+define service ZSVBOOKING_99 {
+  expose ZCBOOKING_99     as bookingHeader;
+  expose ZCBOOKINGITEM_99 as bookingItem;
+}

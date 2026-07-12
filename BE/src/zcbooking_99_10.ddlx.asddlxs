@@ -1,0 +1,15 @@
+@Metadata.layer: #CORE
+
+@UI.chart: [{ qualifier: 'PriceBullet',
+              title: 'Price vs Threshold',
+              chartType: #BULLET,
+              measures: ['TotalPrice'],
+              measureAttributes: [{ measure: 'TotalPrice',
+                                    role: #AXIS_1,
+                                    asDataPoint: true }] }]
+annotate entity ZCBOOKING_99 with
+{
+  @UI.lineItem: [{ position: 65, type: #AS_CHART,
+                valueQualifier: 'PriceBullet', label: 'Price Chart', importance: #HIGH }]
+  CurrencyCode;
+}

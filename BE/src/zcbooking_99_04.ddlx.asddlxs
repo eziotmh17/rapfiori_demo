@@ -1,0 +1,9 @@
+@Metadata.layer: #CORE
+annotate entity ZCBOOKING_99 with
+{
+  @UI.textArrangement: #TEXT_LAST
+  CustomerId;
+
+  @UI.textArrangement: #TEXT_ONLY
+  OverallStatus;
+}

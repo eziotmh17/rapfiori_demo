@@ -1,0 +1,28 @@
+@Metadata.layer: #CORE
+annotate entity ZCBOOKING_99 with
+{
+  @EndUserText.label: 'Rating'
+  @UI.dataPoint: { title: 'Customer Rating',
+                   targetValue: 5,
+                   visualization: #RATING }
+  @UI.lineItem: [{ position: 70, type: #AS_DATAPOINT,
+                   valueQualifier: 'CustomerRating', label: 'Rating' }]
+  CustomerRating;
+
+  @EndUserText.label: 'Completion'
+  @UI.dataPoint: { title: 'Completion',
+                   targetValue: 100,
+                   visualization: #PROGRESS }
+  @UI.lineItem: [{ position: 80, type: #AS_DATAPOINT,
+                   valueQualifier: 'CompletionPct', label: 'Completion' }]
+  CompletionPct;
+
+  @UI.dataPoint: { title: 'Total Price',
+                   targetValue: 5000,
+                   minimumValue: 0,
+                   criticalityCalculation: {
+                     improvementDirection: #MINIMIZE,
+                     toleranceRangeHighValue: 5000,
+                     deviationRangeHighValue: 8000 } }
+  TotalPrice;
+}

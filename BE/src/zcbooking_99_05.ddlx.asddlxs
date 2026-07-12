@@ -1,0 +1,15 @@
+@Metadata.layer: #CORE
+annotate entity ZCBOOKING_99 with
+{
+  @UI.hidden: true
+  StatusCriticality;
+
+  @UI.hidden: true
+  PriorityCriticality;
+
+  @UI.hidden: true
+  StatusText;
+
+  @Consumption.filter.hidden: true
+  Description;
+}
