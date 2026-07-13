@@ -39,17 +39,23 @@ CLASS lhc_BookingHeader IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD earlynumbering_create.
+
     SELECT SINGLE FROM ztbooking_99 FIELDS MAX( booking_id ) INTO @DATA(lv_max_id).
+    SELECT SINGLE FROM ztbooking__d_99 FIELDS MAX( bookingid ) INTO @DATA(lv_max_id_draf).
+    IF lv_max_id <= lv_max_id_draf.
+      lv_max_id = lv_max_id_draf.
+    ENDIF.
     DATA(lv_num) = COND i( WHEN lv_max_id IS INITIAL THEN 0 ELSE CONV i( lv_max_id+2 ) ).
+
 
     LOOP AT entities INTO DATA(entity).
       DATA(lv_id) = entity-BookingId.
-      IF lv_id IS INITIAL.                       " chưa có key -> cấp mới
+      IF lv_id IS INITIAL.
         lv_num += 1.
         lv_id = |BK{ lv_num ALIGN = RIGHT PAD = '0' WIDTH = 4 }|.
       ENDIF.
-      APPEND VALUE #( %cid           = entity-%cid        " correlate theo content id
-*                      %is_draft      = entity-%is_draft   " cần cho BO draft
+      APPEND VALUE #( %cid           = entity-%cid
+                      %is_draft      = entity-%is_draft
                       %key-BookingId = lv_id ) TO mapped-bookingheader.
     ENDLOOP.
   ENDMETHOD.

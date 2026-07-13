@@ -12,6 +12,7 @@
   sortOrder: [{ by: 'BookingDate', direction: #DESC }],
   visualizations: [{ type: #AS_LINEITEM }]
 }]
+
 annotate entity ZCBOOKING_99 with
 {
   @EndUserText.label: 'Booking ID'

@@ -1,9 +1,12 @@
 managed implementation in class zbp_ibooking_99 unique;
 strict ( 2 );
+with draft;
 
 define behavior for ZIBOOKING_99 alias BookingHeader
 persistent table ztbooking_99
+draft table ztbooking__d_99
 lock master
+total etag LastChangedAt
 authorization master ( global )
 etag master LocalLastChangedAt
 early numbering
@@ -13,7 +16,13 @@ early numbering
   delete;
   field ( readonly ) BookingId, CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
   field ( mandatory ) CustomerId, BookingDate;
-  association _bookingItem { create; }
+  association _bookingItem { create; with draft; }
+
+  draft action Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare { }
 
   mapping for ztbooking_99
     {
@@ -38,15 +47,16 @@ early numbering
 
 define behavior for ZIBOOKINGITEM_99 alias BookingItem
 persistent table ztbookingitem_99
+draft table ztbkitem_d_99
 lock dependent by _bookingHeader
 authorization dependent by _bookingHeader
-//etag master <field_name>
+etag master LocalLastChangedAt
 {
   update;
   delete;
   field ( readonly ) BookingId;
   field ( readonly : update ) ItemId;
-  association _bookingHeader;
+  association _bookingHeader { with draft; }
   mapping for ztbookingitem_99
     {
       BookingId          = booking_id;
