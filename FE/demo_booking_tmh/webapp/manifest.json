@@ -59,7 +59,8 @@
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
-        "sap.fe.templates": {}
+        "sap.fe.templates": {},
+        "sap.f": {}
       }
     },
     "contentDensities": {
@@ -91,22 +92,37 @@
       "css": []
     },
     "routing": {
-      "config": {},
+      "config": {
+        "flexibleColumnLayout": {
+          "defaultTwoColumnLayoutType": "TwoColumnsMidExpanded",
+          "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
+        },
+        "routerClass": "sap.f.routing.Router"
+      },
       "routes": [
         {
           "pattern": ":?query:",
           "name": "bookingHeaderList",
-          "target": "bookingHeaderList"
+          "target": [
+            "bookingHeaderList"
+          ]
         },
         {
           "pattern": "bookingHeader({key}):?query:",
           "name": "bookingHeaderObjectPage",
-          "target": "bookingHeaderObjectPage"
+          "target": [
+            "bookingHeaderList",
+            "bookingHeaderObjectPage"
+          ]
         },
         {
           "pattern": "bookingHeader({key})/_bookingItem({key2}):?query:",
           "name": "bookingItemObjectPage",
-          "target": "bookingItemObjectPage"
+          "target": [
+            "bookingHeaderList",
+            "bookingHeaderObjectPage",
+            "bookingItemObjectPage"
+          ]
         }
       ],
       "targets": {
@@ -133,7 +149,9 @@
                 }
               }
             }
-          }
+          },
+          "controlAggregation": "beginColumnPages",
+          "contextPattern": ""
         },
         "bookingHeaderObjectPage": {
           "type": "Component",
@@ -149,9 +167,12 @@
                     "route": "bookingItemObjectPage"
                   }
                 }
-              }
+              },
+              "enableLazyLoading": true
             }
-          }
+          },
+          "controlAggregation": "midColumnPages",
+          "contextPattern": "/bookingHeader({key})"
         },
         "bookingItemObjectPage": {
           "type": "Component",
@@ -162,9 +183,17 @@
               "editableHeaderContent": false,
               "contextPath": "/bookingHeader/_bookingItem"
             }
-          }
+          },
+          "controlAggregation": "endColumnPages",
+          "contextPattern": "/bookingHeader({key})/_bookingItem({key2})"
         }
       }
+    },
+    "rootView": {
+      "viewName": "sap.fe.templates.RootContainer.view.Fcl",
+      "type": "XML",
+      "async": true,
+      "id": "appRootView"
     }
   },
   "sap.fiori": {
